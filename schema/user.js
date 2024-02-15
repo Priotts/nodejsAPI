@@ -1,4 +1,4 @@
-const mongoose = require('mongose')
+const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const userSchema = new Schema({
@@ -19,6 +19,7 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true,
+        unique: true,
         lowercase: true,
         validate: {
             validator: function (value) {
