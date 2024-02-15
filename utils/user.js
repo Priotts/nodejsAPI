@@ -38,7 +38,7 @@ const updataUser = async (req, res, next) => {
             return res.status(400).json({ status: 'fail', message: 'Email is required' })
         }
         const user = await User.findByIdAndUpdate(id, { email: req.body.email }, { runValidators: true, new: true })
-        user ? res.status(200).json({ status: 'ok', data: [user] }) : res.status(404).json({ status: 'ok', message: 'User not found' })
+        user ? res.status(200).json({ status: 'ok',  data: { user } }) : res.status(404).json({ status: 'ok', message: 'User not found' })
     }
     catch (err) {
         next(err);

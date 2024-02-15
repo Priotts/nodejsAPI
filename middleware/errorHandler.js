@@ -1,7 +1,8 @@
 const errorHandler = (error, req, res, next) => {
     // Duplicate key error
     if (error.code === 11000) {
-        return res.status(400).json({ status: 'fail', message: 'Duplicate key error: email already exists.' });
+        const field = Object.keys(error.keyValue)[0];
+        return res.status(400).json({ status: 'fail', message: `Duplicate key error: ${field} already exists.` });
     }
     // ValidationError
     if (error.name === 'ValidationError') {
