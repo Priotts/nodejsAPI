@@ -1,17 +1,15 @@
 const errorHandler = (error, req, res, next) => {
-
+    // Duplicate key error
+    if (error.code === 11000) {
+        return res.status(400).json({ status: 'fail', message: 'Duplicate key error: email already exists.' });
+    }
+    // ValidationError
     if (error.name === 'ValidationError') {
-        console.log(error)
-        res.status(400).json({
-            status: 'fail',
-            type: "ValidationError",
-            message: error.message,
-        })
+        return res.status(400).json({ status: 'fail', message: error.message });
     }
-    else {
-        res.status(error.status || 500).json({ status: 'fail', message: error.message })
-    }
-
+    const status = error.status || 500;
+    res.status(status || 500).json({ status: 'fail', message: error.message })
+    console.log(error.status)
 }
 
 module.exports = errorHandler
