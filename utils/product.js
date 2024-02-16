@@ -39,9 +39,8 @@ const updateProduct = async (req, res, next) => {
         if(!name){
             return res.status(400).json({ status: 'fail', message: 'Name is required' })
         }
-        const product = await Product.findByIdAndUpdate(id, { name: req.body.name, description: req.body.description }, { new: true })
+        const product = await Product.findByIdAndUpdate(id, { name: req.body.name, description: req.body.description }, { new: true, runValidators: true })
         product ? res.status(200).json({ status: 'ok',  data: { product } }) : res.status(404).json({ status: 'ok', message: 'product not found' })
-
     }
     catch (err) {
         next(err)
