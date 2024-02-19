@@ -4,11 +4,13 @@ const { Schema } = mongoose
 const OrderSchema = new Schema({
     products: [{
         type: Schema.Types.ObjectId,
-        ref: 'Product'
+        ref: 'Product',
+        required: true
     }],
     users: [{
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     }],
     orderDate: {
         type: Date,
