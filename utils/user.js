@@ -22,15 +22,16 @@ const getUser = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
     try {
+
         const user = new User(req.body);
-        await user.save();
-        res.json({ status: 'ok', data: { user } })
+        const newUser = await user.save();
+        res.status(200).json({ status: 'ok', data: { user: newUser } })
     } catch (err) {
         next(err);
     }
 };
 
-const updataUser = async (req, res, next) => {
+const updateUser = async (req, res, next) => {
     try {
         const { id } = req.params
         const email = req.body.email
@@ -38,7 +39,7 @@ const updataUser = async (req, res, next) => {
             return res.status(400).json({ status: 'fail', message: 'Email is required' })
         }
         const user = await User.findByIdAndUpdate(id, { email: req.body.email }, { runValidators: true, new: true })
-        user ? res.status(200).json({ status: 'ok',  data: { user } }) : res.status(404).json({ status: 'ok', message: 'User not found' })
+        user ? res.status(200).json({ status: 'ok', data: { user } }) : res.status(404).json({ status: 'fail', message: 'User not found' })
     }
     catch (err) {
         next(err);
@@ -56,4 +57,4 @@ const deleteUser = async (req, res, next) => {
     }
 }
 
-module.exports = { users, getUser, createUser, updataUser, deleteUser };
+module.exports = { users, getUser, createUser, updateUser, deleteUser };
