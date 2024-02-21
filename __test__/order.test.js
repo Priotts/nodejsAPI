@@ -2,7 +2,7 @@ const Order = require("../schema/order")
 const Product = require("../schema/product")
 const User = require("../schema/user")
 
-const { createOrder, updateOrder, deleteOrder, filterByProduct, filterByDate } = require('../utils/order')
+const { createOrder, updateOrder, deleteOrder} = require('../utils/order')
 
 jest.mock('../schema/order')
 jest.mock('../schema/product')

@@ -7,7 +7,7 @@ router.get('/:id', orderUtils.getOrder)
 router.post('/', orderUtils.createOrder)
 router.patch('/:id', orderUtils.updateOrder)
 router.delete('/:id', orderUtils.deleteOrder)
-router.get('/filter/:name', orderUtils.filterByProduct)
+router.get('/product/:name', orderUtils.filterByProduct)
 router.get('/date/:data', orderUtils.filterByDate)
 
 module.exports = router
