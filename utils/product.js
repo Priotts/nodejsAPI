@@ -24,8 +24,8 @@ const getProduct = async (req, res, next) => {
 const createProduct = async (req, res, next) => {
     try {
         const product = new Product(req.body)
-        await product.save()
-        res.json({ status: 'ok', data: { product } })
+        const newProduct = await product.save()
+        res.status(200).json({ status: 'ok', data: { product: newProduct } })
     }
     catch (err) {
         next(err)

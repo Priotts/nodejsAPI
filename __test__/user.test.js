@@ -73,8 +73,9 @@ describe('Post /user', () => {
             json: jest.fn(),
             status: jest.fn().mockReturnThis()
         };
+        const next = jest.fn()
         User.prototype.save.mockResolvedValueOnce(mockUser)
-        await createUser(req, res)
+        await createUser(req, res, next)
         expect(res.json).toHaveBeenCalledWith({ status: 'ok', data: { user: mockUser } })
 
     });
@@ -111,7 +112,8 @@ describe("Patch /user/:id", () => {
         };
 
         User.findByIdAndUpdate.mockResolvedValue(null);
-        await updateUser(req, res);
+        const next = jest.fn()
+        await updateUser(req, res, next);
 
         expect(res.status).toHaveBeenCalledWith(404);
         expect(res.json).toHaveBeenCalledWith({ status: 'fail', message: 'User not found' });
