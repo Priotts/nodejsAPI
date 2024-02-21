@@ -24,16 +24,16 @@ const getOrder = async (req, res, next) => {
 
 const createOrder = async (req, res, next) => {
     try {
-        const product = await Product.findById(req.body.productId)
-        const user = await User.findById(req.body.userId)
         if (!req.body.productId || !req.body.userId) {
             return res.status(400).json({ status: 'fail', message: 'productId and userId are required' });
         }
+        const product = await Product.findById(req.body.productId)
+        const user = await User.findById(req.body.userId)
         if (user && product) {
             console.log(product, user)
             const order = new Order({ products: [product], users: [user] })
-            await order.save()
-            res.status(200).json({ status: 'ok', data: { order } })
+            const newOrder = await order.save()
+            res.status(200).json({ status: 'ok', data: { order: newOrder } })
         }
         else {
             res.status(404).json({ status: 'fail', message: 'User/Product not found' })
